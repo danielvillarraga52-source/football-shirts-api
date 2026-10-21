@@ -1,14 +1,14 @@
-interface IUser{
-    id:number
-    name:string,
-    secondName:string,
-    lastName:string,
-    secondLastName:string,
-    email:string,
-    country:string,
-    address:string,
-    active:boolean,
-    role:string
+import Role from "./Enum";
 
+interface IUser {
+  id: number;
+  name: string;
+  lastName: string;
+  email: string;
+  role: Role;
+  active:boolean;
+  passwordHash:string;
+  
 }
+
 export default IUser;

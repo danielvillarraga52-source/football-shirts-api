@@ -1,27 +1,34 @@
+import { userModel } from "../config/data-source";
+import { User } from "../entities/User";
 import IUser from "../interfaces/IUsers";
 import UserDto from "../interfaces/UserDto";
 
-const users:IUser[]=[];
-let id:number=1;
+let users:IUser[]=[];
 
 
-export const createUserController=async(userData:UserDto):Promise<IUser>=>{
 
-    const newUser:IUser={
-        id,
-        name:userData.name,
-        secondName:userData.secondName,
-        lastName:userData.lastName,
-        secondLastName:userData.secondLastName,
-        email:userData.email,
-        country:userData.country,
-        address:userData.address,
-        active:userData.active,
-        role:userData.role
-    }
-    users.push(newUser);
-    id++;
-    return newUser;
+export const createUserController=async(userData:UserDto)=>{
+
+    const user=await userModel.create(userData);
+    const result=await userModel.save(user);
+    return result
+   
+}
+export const getAllUsersController=async():Promise<User[]>=>{
+    const users = await userModel.find()
+    return users;
+}
+
+export const getByUserController=async(id:number):Promise<User|null>=>{
+    const user=await userModel.findOneBy({id})
+    if(!user) throw Error("No existe el usuario")
+        else return user;
+} 
+
+export const userDeleteController = async (id:number):Promise<void>=>{
+    users = users.filter((user:IUser)=>{
+        return user.id!=id
+    })
 }
  
     

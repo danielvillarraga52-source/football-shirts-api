@@ -1,12 +1,12 @@
+import Role from "./Enum";
 interface UserDto{
-    name:string,
-    secondName:string,
-    lastName:string,
-    secondLastName:string,
-    email:string,
-    country:string,
-    address:string,
-    active:boolean,
-    role:string
+
+  name: string;
+  lastName: string;
+  email: string;
+  role: Role;
+  active:boolean;
+  passwordHash:string;
+  
 }
 export default UserDto;

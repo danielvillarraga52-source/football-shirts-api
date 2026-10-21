@@ -11,11 +11,14 @@
     "target": "esnext",
     //"types": [],
     // For nodejs:
-    // "lib": ["esnext"],
+     "lib": ["ES6"],
      "types": ["node"],
     // and npm install -D @types/node
     "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
 
+    "strictPropertyInitialization": false,
     // Other Outputs
     "sourceMap": true,
     "declaration": true,
