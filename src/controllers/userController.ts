@@ -37,7 +37,7 @@ export const logueoUserController=async(userData:LoginDto):Promise <{user:User,t
 
     
     const user = await checkEmailExist(userData.email)
-    console.log("user",user)
+    
     if(!user){
         throw Error("No existe usuario con este email")
     }
@@ -49,6 +49,12 @@ export const logueoUserController=async(userData:LoginDto):Promise <{user:User,t
     return {user,
         token
     }
+
+};
+export const profileController=async(id:number)=>{
+    const user = await userModel.findOneBy({id})
+    if(!user) throw new Error("Usuario no encontrado");
+    return user;
 
 }
 export const getAllUsersController=async():Promise<User[]>=>{

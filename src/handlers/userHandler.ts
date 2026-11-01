@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import IUser from "../interfaces/IUsers";
-import { createUserController,getAllUsersController,userDeleteController,getByUserController,logueoUserController } from "../controllers/userController";
+import { createUserController,getAllUsersController,userDeleteController,getByUserController,logueoUserController,profileController } from "../controllers/userController";
 import { User } from "../entities/User";
 
 
@@ -33,6 +33,21 @@ export const logueo =async(req:Request,res:Response)=>{
         })
     }
 
+}
+export const profileHandler =async(req:Request,res:Response)=>{
+
+    try {
+        
+        const userId = (req as any).userId;
+
+    const user = await profileController(userId);
+
+    res.status(200).json(user); 
+    } catch (error) {
+         res.json({
+            error: error instanceof Error ? error.message : "Error desconocido"
+        })
+    }
 }
 export const getByUser=async (req:Request,res:Response)=>{
     const {id}=req.params;

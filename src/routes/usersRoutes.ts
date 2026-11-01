@@ -1,13 +1,14 @@
 import { Router } from "express";
-import { getAllUsers,createUser,deleteUser,getByUser,logueo } from "../handlers/userHandler";
-import auth from "../middleware/auth";
+import { getAllUsers,createUser,deleteUser,getByUser,logueo,profileHandler } from "../handlers/userHandler";
+import verifyToken from "../middleware/auth";
 const usersRouter=Router();
 
 usersRouter.get("/",getAllUsers);
-usersRouter.get("/:id",getByUser)
 usersRouter.post("/create",createUser);
 usersRouter.post("/login",logueo);
 usersRouter.delete("/delete",deleteUser);
+usersRouter.get("/profile",verifyToken,profileHandler);
+usersRouter.get("/:id",getByUser)
 
 
 
