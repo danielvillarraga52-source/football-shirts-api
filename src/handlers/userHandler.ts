@@ -58,6 +58,9 @@ export const getByUser=async (req:Request,res:Response)=>{
         res.status(400).json({error})
     }
 }
+export const updateUserHandler = async(req:Request,res:Response)=>{
+    
+}
 export const deleteUser=async (req:Request,res:Response)=>{
 
     const {id}=req.body;
