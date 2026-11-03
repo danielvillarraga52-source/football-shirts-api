@@ -18,11 +18,20 @@ export class Product {
   @Column()
   name!: string;
 
+  @Index()
+  @Column({ length: 60 })
+  country!: string;
+
+  @Column({ type: 'text', array: true, default: '{}' })
+  sizes!: string[];
+  @Column()
+  material!: string;
+
   @Column({ type: 'text' })
   description!: string;
 
-  @Column({ name: 'price_cents', type: 'int' })
-  priceCents!: number;
+  @Column({ name: 'price', type: 'int' })
+  price!: number;
 
   @Column({ type: 'int', default: 0 })
   stock!: number;

@@ -18,8 +18,8 @@ export class OrderItem {
   @Column({ type: 'int' })
   quantity!: number;
 
-  @Column({ name: 'unit_price_cents', type: 'int' })
-  unitPriceCents!: number;
+  @Column({ name: 'unit_price', type: 'int' })
+  unitPrice!: number;
 
   @ManyToOne(() => Order, (order) => order.items, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'order_id' })

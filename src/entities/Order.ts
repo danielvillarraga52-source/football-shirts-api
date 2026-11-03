@@ -23,8 +23,8 @@ export class Order {
   @Column({ type: 'enum', enum: OrderStatus, default: OrderStatus.PENDING })
   status!: OrderStatus;
 
-  @Column({ name: 'total_cents', type: 'int' })
-  totalCents!: number;
+  @Column({ name: 'total_price', type: 'int' })
+  totalPrice!: number;
 
   @Column({ name: 'stripe_session_id', type: 'varchar', nullable: true, unique: true })
   stripeSessionId!: string | null;
