@@ -7,10 +7,10 @@ const usersRouter=Router();
 usersRouter.get("/",verifyToken,verifyRole,getAllUsers);
 usersRouter.post("/create",createUser);
 usersRouter.post("/login",logueo);
-usersRouter.delete("/delete",deleteUser);
 usersRouter.get("/profile",verifyToken,profileHandler);
+usersRouter.delete("/delete/:id",deleteUser);
 usersRouter.get("/:id",verifyToken,verifyRole,getByUser);
-usersRouter.put("/update",updateUserHandler);
+usersRouter.put("/update/:id",verifyToken,updateUserHandler);
 
 
 

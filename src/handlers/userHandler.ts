@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import IUser from "../interfaces/IUsers";
-import { createUserController,getAllUsersController,userDeleteController,getByUserController,logueoUserController,profileController } from "../controllers/userController";
+import { createUserController,getAllUsersController,userDeleteController,getByUserController,logueoUserController,profileController,updateUserController } from "../controllers/userController";
 import { User } from "../entities/User";
 
 
@@ -59,12 +59,28 @@ export const getByUser=async (req:Request,res:Response)=>{
     }
 }
 export const updateUserHandler = async(req:Request,res:Response)=>{
-    
+    const {name,lastName,email,passwordHash,role,active}=req.body;
+    const {id}=req.params;
+    try {
+        const userChange=await updateUserController(Number(id),{name,lastName,email,passwordHash,role,active});
+        res.status(200).json(userChange);
+    } catch (error) {
+        res.json({
+            error: error instanceof Error ? error.message : "Error desconocido"
+        })
+    }
 }
 export const deleteUser=async (req:Request,res:Response)=>{
 
-    const {id}=req.body;
-
-    await userDeleteController(id)
-    res.status(200).json({message:"usuario eliminado"});
+    const {id}=req.params;;
+    try {
+        const user= await userDeleteController(Number(id));
+        res.status(200).json(user);
+    } catch (error) {
+        res.json({
+            error: error instanceof Error ? error.message : "Error desconocido"
+        })
+    }
+   
+    
 };

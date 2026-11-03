@@ -67,11 +67,21 @@ export const getByUserController=async(id:number):Promise<User|null>=>{
     if(!user) throw Error("No existe el usuario")
         else return user;
 } 
-
-export const userDeleteController = async (id:number):Promise<void>=>{
-    users = users.filter((user:IUser)=>{
-        return user.id!=id
-    })
+export const updateUserController = async(id:number,userData:UserDto)=>{
+        const user= await userModel.findOneBy({id});
+        if(!user){
+             throw new Error("Usuario no encontrado");
+        } const edit = userModel.merge(user,userData);
+        const results =await userModel.save(edit);
+        return results;
+}
+export const userDeleteController = async (id:number)=>{
+   
+        const user= await userModel.findOneBy({id});
+        if(!user){
+            throw new Error("Usuario no encontrado");
+        }const results= await userModel.delete(id);
+        return results; 
 }
  
     
