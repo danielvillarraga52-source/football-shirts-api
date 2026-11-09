@@ -1,13 +1,13 @@
 import { userModel } from "../config/data-source";
 import { User } from "../entities/User";
-import IUser from "../interfaces/IUsers";
 import UserDto from "../interfaces/UserDto";
 import LoginDto from "../interfaces/LoginDto";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { claveJwt } from "../config/envs";
+import {UpdateUserDto,DeleteUser} from "../interfaces/UpdateUserDto";
 
-let users:IUser[]=[];
+
 
 const checkEmailExist=async(email:string)=>{
     const userEmail=await userModel.findOneBy({ email });;
@@ -67,22 +67,50 @@ export const getByUserController=async(id:number):Promise<User|null>=>{
     if(!user) throw Error("No existe el usuario")
         else return user;
 } 
-export const updateUserController = async(id:number,userData:UserDto)=>{
-        const user= await userModel.findOneBy({id});
-        if(!user){
-             throw new Error("Usuario no encontrado");
-        } const edit = userModel.merge(user,userData);
-        const results =await userModel.save(edit);
-        return results;
-}
-export const userDeleteController = async (id:number)=>{
-   
-        const user= await userModel.findOneBy({id});
-        if(!user){
-            throw new Error("Usuario no encontrado");
-        }const results= await userModel.delete(id);
-        return results; 
-}
+export const updateUserController = async (
+  id: number,
+  userData: UpdateUserDto
+) => {
+  const user = await userModel.findOneBy({ id });
+
+  if (!user) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  if (userData.passwordHash) {
+    const salt = await bcrypt.genSalt(10);
+
+    user.passwordHash = await bcrypt.hash(
+      userData.passwordHash,
+      salt
+    );
+  }
+
+  if (userData.name) {
+    user.name = userData.name;
+  }
+
+  if (userData.email) {
+    user.email = userData.email;
+  }
+
+  return await userModel.save(user);
+};
+export const userDeleteController = async (id: number) => {
+  const user = await userModel.findOneBy({ id });
+
+  if (!user) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  user.active = false;
+
+  await userModel.save(user);
+
+  return {
+    message: "Usuario desactivado correctamente",
+  };
+};
  
     
    

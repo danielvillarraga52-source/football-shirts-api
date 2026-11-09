@@ -41,7 +41,7 @@ export const verifyRole=(req:Request,res:Response,next:NextFunction)=>{
   
   const role=(req as any).role;
   if(role===Role.ADMIN){
-    console.log(role)
+    
     return next();
 
   }return res.status(403).json({

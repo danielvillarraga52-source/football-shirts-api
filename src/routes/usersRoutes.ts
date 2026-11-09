@@ -8,9 +8,9 @@ usersRouter.get("/",verifyToken,verifyRole,getAllUsers);
 usersRouter.post("/create",createUser);
 usersRouter.post("/login",logueo);
 usersRouter.get("/profile",verifyToken,profileHandler);
-usersRouter.delete("/delete/:id",deleteUser);
+usersRouter.delete("/delete/:id",verifyToken,verifyRole,deleteUser);
 usersRouter.get("/:id",verifyToken,verifyRole,getByUser);
-usersRouter.put("/update/:id",verifyToken,updateUserHandler);
+usersRouter.put("/update/:id",verifyToken,verifyRole,updateUserHandler);
 
 
 

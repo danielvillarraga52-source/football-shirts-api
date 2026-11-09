@@ -4,8 +4,6 @@ interface UserDto{
   name: string;
   lastName: string;
   email: string;
-  role: Role;
-  active:boolean;
   passwordHash:string;
   
 }
