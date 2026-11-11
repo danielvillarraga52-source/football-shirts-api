@@ -19,7 +19,7 @@ export class Favorite {
   @JoinColumn({ name: 'user_id' })
   user!: User;
 
-  @ManyToOne(() => Product, (product) => product.favorites, { onDelete: 'CASCADE' })
+  /* @ManyToOne(() => Product, (product) => product.favorites, { onDelete: 'CASCADE' }) */
   @JoinColumn({ name: 'product_id' })
   product!: Product;
 }

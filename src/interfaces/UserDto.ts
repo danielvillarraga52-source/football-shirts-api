@@ -5,6 +5,6 @@ interface UserDto{
   lastName: string;
   email: string;
   passwordHash:string;
-  
+  role?:Role
 }
 export default UserDto;

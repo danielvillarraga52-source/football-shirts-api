@@ -16,9 +16,9 @@ export const getAllUsers=async (req:Request,res:Response)=>{
 };
 
 export const createUser=async (req:Request,res:Response)=>{
-    const {name,lastName,email,passwordHash}=req.body;
+    const {name,lastName,email,passwordHash,role}=req.body;
     try {
-        const {user,token}=await createUserController({name,lastName,email,passwordHash});
+        const {user,token}=await createUserController({name,lastName,email,passwordHash,role});
          res.status(200).json({user,token});
     } catch (error) {
   return res.status(400).json({

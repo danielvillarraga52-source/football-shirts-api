@@ -3,55 +3,33 @@ import {
   ManyToOne, JoinColumn, OneToMany, Index,
 } from 'typeorm';
 import { Category } from './Category';
-import { Favorite } from './Favorite';
-import { OrderItem } from './OrderItem';
+@Entity({ name: "products" })
 
-@Entity({name:"products"})
 export class Product {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Index()
-  @Column({ name: 'category_id' })
-  categoryId!: number;
-
-  @Column()
+  @Column({ length: 120 })
   name!: string;
 
-  @Index()
-  @Column({ length: 60 })
-  country!: string;
+  @Column({ type: "text", nullable: true })
+  description?: string;
 
-  @Column({ type: 'text', array: true, default: '{}' })
-  sizes!: string[];
-  @Column()
-  material!: string;
-
-  @Column({ type: 'text' })
-  description!: string;
-
-  @Column({ name: 'price', type: 'int' })
+  @Column({ type: "decimal", precision: 10, scale: 2 })
   price!: number;
 
-  @Column({ type: 'int', default: 0 })
+  @Column({ type: "int", default: 0 })
   stock!: number;
 
-  @Column({ name: 'image_url' })
-  imageUrl!: string;
+  @Column({type:'varchar', nullable: true })
+  imageUrl?: string;
 
-  @Column({ name: 'is_active', default: true })
-  isActive!: boolean;
+  @Column({ default: true })
+  active!: boolean;
 
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt!: Date;
-
-  @ManyToOne(() => Category, (category) => category.products)
-  @JoinColumn({ name: 'category_id' })
+  @ManyToOne(() => Category, (category) => category.products, { nullable: false })
   category!: Category;
 
-  @OneToMany(() => Favorite, (favorite) => favorite.product)
-  favorites!: Favorite[];
-
-  @OneToMany(() => OrderItem, (item) => item.product)
-  orderItems!: OrderItem[];
+  @CreateDateColumn({ name: "created_at" })
+  createdAt!: Date;
 }
