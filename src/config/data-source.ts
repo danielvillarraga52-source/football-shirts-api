@@ -25,3 +25,4 @@ export const AppDataSource = new DataSource({
 export const userModel=AppDataSource.getRepository(User);
 export const categoryModel=AppDataSource.getRepository(Category);
 export const productModel=AppDataSource.getRepository(Product);
+export const favoriteModel=AppDataSource.getRepository(Favorite);

@@ -3,6 +3,7 @@ import {
   ManyToOne, JoinColumn, OneToMany, Index,
 } from 'typeorm';
 import { Category } from './Category';
+import { Favorite } from './Favorite';
 @Entity({ name: "products" })
 
 export class Product {
@@ -32,4 +33,6 @@ export class Product {
 
   @CreateDateColumn({ name: "created_at" })
   createdAt!: Date;
+  @OneToMany(() => Favorite, (favorite) => favorite.product)
+favorites!: Favorite[];
 }
