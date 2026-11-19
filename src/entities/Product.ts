@@ -4,6 +4,7 @@ import {
 } from 'typeorm';
 import { Category } from './Category';
 import { Favorite } from './Favorite';
+import { OrderItem } from './OrderItem';
 @Entity({ name: "products" })
 
 export class Product {
@@ -35,4 +36,6 @@ export class Product {
   createdAt!: Date;
   @OneToMany(() => Favorite, (favorite) => favorite.product)
 favorites!: Favorite[];
+@OneToMany(() => OrderItem, (orderItem) => orderItem.product)
+orderItems: OrderItem[];
 }
