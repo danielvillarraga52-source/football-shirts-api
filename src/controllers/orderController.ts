@@ -1,6 +1,7 @@
 import { orderModel, productModel } from "../config/data-source";
 import { OrderStatus } from "../entities/Order";
 import CreateOrderDto from "../interfaces/orders/CreateOrderDto";
+import { Order } from "../entities/Order";
 
 export const orderPostController = async (userId: number, orderData: CreateOrderDto) => {
      console.log("userId:", userId, "| orderData:", orderData);
@@ -37,3 +38,19 @@ export const orderPostController = async (userId: number, orderData: CreateOrder
 
   return await orderModel.save(order);
 };
+
+export const allOrders = async():Promise<Order[]>=>{
+
+  const orders=await orderModel.find();
+  return orders
+}
+export const orderOne = async(userId:number,id:number)=>{
+  
+  const order = await orderModel.findOne({
+    where: { id, userId },                       // solo si el pedido es de este usuario
+    relations: { items: { product: true } },     // trae ítems y datos del producto
+  });
+
+  if (!order) throw new Error("Pedido no encontrado");
+  return order;
+}
